@@ -37,7 +37,7 @@
             chatLog.scrollTop = chatLog.scrollHeight;
             
             const port = 3000;
-            fetch(`http://localhost:${port}`, {
+            fetch('azs-tianxing-chatgpt.azurewebsites.net/api', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
