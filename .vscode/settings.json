@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/dda3c544-6098-4872-a9a6-73660dc8c024/resourceGroups/rg-tianxing/providers/Microsoft.Web/sites/azs-tianxing-chatgpt",
+    "appService.deploySubpath": "."
+}
