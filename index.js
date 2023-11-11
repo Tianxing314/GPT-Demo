@@ -20,6 +20,13 @@ const port = 3000;
 app.use(bodyParser.json());
 app.use(cors());
 
+app.get('/', (req, res) => {
+    console.log("test")
+    res.json({
+        test: "test22"
+    });
+});
+
 app.post('/', async (req, res) => {
 
     const { message } = req.body;
