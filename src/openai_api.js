@@ -77,6 +77,7 @@ function getAPICallPrice(model, totalToken) {
         case 'gpt-4':
             // 	$0.03 / 1K tokens
             totalPrice = totalToken * (0.03 / 1000); 
+            break;
         default:
             totalPrice = 'Price Not Available: GPT Model Not Found';
     }
