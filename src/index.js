@@ -41,6 +41,14 @@ app.get('/test', (req, res) => {
   res.send(htmlResponse);
 });
 
+app.post('/authentication', async (req, res) => {
+    const { password } = req.body;
+    const grant_access = password === process.env.ADMIN_PASSWORD
+    res.json({
+        grant_access: grant_access
+    });
+});
+
 app.post('/api', async (req, res) => {
     const { message, model } = req.body;
     try {

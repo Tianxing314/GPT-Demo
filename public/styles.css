@@ -88,6 +88,11 @@ form select, form button {
     color: #A9A9A9;
 }
 
+.message--warning {
+    background-color: transparent;
+    color: #A9A9A9;
+}
+
 .loading-dots {
     font-size: 20px;
     text-align: start;
