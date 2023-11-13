@@ -17,7 +17,7 @@ h1 {
 }
 
 form {
-    display: flex;
+    display: flex-wrap;
     flex-direction: column;
     align-items: center;
     margin-top: 20px;
@@ -36,13 +36,20 @@ form textarea {
 }
 
 form select, form button {
-    width: 40%;
     margin: 5px;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #e1e1e1;
     border-radius: 5px;
     box-sizing: border-box;
+}
+
+form select {
+    width: 30%;
+}
+
+form button {
+    width: 40%;
 }
 
 #chat-log {
@@ -65,14 +72,11 @@ form select, form button {
 .message--sent {
     background-color: #dcf8c6;
     color: #000;
-    margin-left: 40%;
 }
 
 .message--received {
     background-color: #ffffff;
     color: #000;
-    margin-right: 40%;
-    padding: 15px;
 }
 
 .message__text {
