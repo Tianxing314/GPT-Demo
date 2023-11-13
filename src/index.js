@@ -12,8 +12,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(cors());
-
 app.use(express.static(join(__dirname, '..', 'puiblic')));
+app.use(express.static('public', { 'extensions': ['html', 'htm', 'css'] }));
 
 app.get('/', (req, res) => {
     res.sendFile(join(__dirname, '..', 'public', 'index.html'));
@@ -40,10 +40,14 @@ app.get('/test', (req, res) => {
 });
 
 app.post('/api', async (req, res) => {
-    const { message } = req.body;
+    const { message, model } = req.body;
     try {
-        const result = await getMatchedProfessionsFromOpenAI(message);
-        res.json(result);
+        const [result, usage] = await getMatchedProfessionsFromOpenAI(message, model);
+        const response = {
+            result: result,
+            usage: usage
+        }
+        res.json(response);
     } catch (error) {
         console.error("Error processing request:", error);
         res.status(500).json({ error: "Internal Server Error" });

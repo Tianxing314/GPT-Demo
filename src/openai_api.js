@@ -53,29 +53,55 @@ const schema = {
 
 
 function getOpenAIConnection() {
-    // const configuration = new OpenAI({
-    //     organization: 'org-euWvNNFFyodNWZA86qKBaHHi',
-    //     apiKey: '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',
-    // });
-
     const configuration = new OpenAI({
-        organization: process.env.OPEN_AI_ORGANIZATION,
-        apiKey: process.env.OPEN_AI_API_KEY,
+        organization: 'org-euWvNNFFyodNWZA86qKBaHHi',
+        apiKey: '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',
     });
+
+    // const configuration = new OpenAI({
+    //     organization: process.env.OPEN_AI_ORGANIZATION,
+    //     apiKey: process.env.OPEN_AI_API_KEY,
+    // });
     
     const openai = new OpenAI(configuration);
-    return openai
-}
+    return openai;
+};
 
-export const getMatchedProfessionsFromOpenAI = async (message) => {
+function getAPICallPrice(model, totalToken) {
+    let totalPrice;
+    switch (model) {
+        case 'gpt-3.5-turbo-16k':
+            // 	$0.0010 / 1K tokens
+            totalPrice = totalToken * (0.001 / 1000); 
+            break;
+        case 'gpt-4':
+            // 	$0.03 / 1K tokens
+            totalPrice = totalToken * (0.03 / 1000); 
+        default:
+            totalPrice = 'Price Not Available: GPT Model Not Found';
+    }
+    return totalPrice;
+};
+
+export const getMatchedProfessionsFromOpenAI = async (message, model='gpt-3.5-turbo-16k') => {
     let matchedProfessionsObj = {};
+    let usage = {
+        tokens: {
+            prompt_tokens: 0,
+            completion_tokens: 0,
+            total_tokens: 0,
+        },
+        cost: 0,
+    }
 
     try {
         const openai = getOpenAIConnection();
         const {data, response } = await openai.chat.completions.create({
-            model: 'gpt-4',
+            // model: 'gpt-4',
             // model: 'gpt-3.5-turbo',
+            // model: 'gpt-3.5-turbo-16k',
             // model: "ft:gpt-3.5-turbo-1106:tianxing-li::8JVZjEai",
+            model: `${model}`,
             temperature: 0.7,
             // max_tokens: 2000,
             messages: [
@@ -102,9 +128,14 @@ export const getMatchedProfessionsFromOpenAI = async (message) => {
                 classification: profession_data.profession_2.classification
             }
         };
+        usage = {
+            tokens: data.usage,
+            cost: getAPICallPrice(model, data.usage.total_tokens)
+        };
+
     } catch (error) {
         console.error("Error in getMatchedProfessionsFromOpenAI:", error);
     }
 
-    return matchedProfessionsObj;
+    return [matchedProfessionsObj, usage];
 }
