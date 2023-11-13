@@ -57,11 +57,6 @@ const schema = {
 
 
 function getOpenAIConnection() {
-    // const configuration = new OpenAI({
-    //     organization: 'org-euWvNNFFyodNWZA86qKBaHHi',
-    //     apiKey: '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',
-    // });
-
     const configuration = new OpenAI({
         organization: process.env.OPEN_AI_ORGANIZATION,
         apiKey: process.env.OPEN_AI_API_KEY,
