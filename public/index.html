@@ -46,7 +46,6 @@
             const generatingMessage = document.createElement('div');
             generatingMessage.classList.add('message');
             generatingMessage.classList.add('message--waiting');
-            // generatingMessage.innerHTML = `<div class="message__text">Finding your profession...</div>`;
             generatingMessage.innerHTML = `
             <div class="message__text">
                 <div class="loading-dots">
@@ -55,7 +54,6 @@
                     <span>&#x2022;</span>
                 </div>
             </div>
-            
             `;
             
             chatLog.appendChild(messageElement);
@@ -85,9 +83,6 @@
                 messageElement.classList.add('message--received');
                 messageElement.innerHTML = `
                 <div class="message__text report-summary">
-                    <b>Powered by: </b>${selectedModel}
-                </div>
-                <div class="message__text report-summary">
                     <b>Most Likely:</b>
                     <ul>
                         <li><u>Profession:</u> ${result.profession_1.profession_name}</li>
@@ -104,8 +99,12 @@
                     </ul>
                 </div>
                 <div class="message__text report-summary">
+                    <b>Keywords: </b>${result.keywords}
+                </div>
+                <div class="message__text report-summary">
                     <b>Usage:</b>
                     <ul>
+                        <li><u>GPT model:</u> ${selectedModel}</li>
                         <li><u>Prompt tokens:</u> ${tokens.prompt_tokens}</li>
                         <li><u>Completion tokens:</u> ${tokens.completion_tokens}</li>
                         <li><u>Total tokens:</u> ${tokens.total_tokens}</li>

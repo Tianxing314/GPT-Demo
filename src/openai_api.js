@@ -16,7 +16,7 @@ const schema = {
                 },
                 probability: {
                     description: "the possibility of the guess",
-                    type: "number"       
+                    type: "number",     
                 },
                 classification: {
                     description: "profession classification",
@@ -46,6 +46,10 @@ const schema = {
                 }
             },
             required:["profession_name", "probability", 'classification']
+        },
+        keywords: {
+            description: '3 keywords for this profession desciption',
+            type: "string",
         },
     },
     required: ["profession_1", "profession_2"]
@@ -106,8 +110,7 @@ export const getMatchedProfessionsFromOpenAI = async (message, model='gpt-3.5-tu
             temperature: 0.7,
             // max_tokens: 2000,
             messages: [
-                {role: 'user', content: `Given the job description in []: [${message}], guess the full names of the two most matched professions and provide more information about them , including at least the name and classification of the matched professions and the probabilities that they are the match.`},
-            
+                {role: 'user', content: `Given the job description in [${message}], guess the two most possible professions`},
             ],
             functions: [
                 {name: "get_profession_data", "parameters": schema}
@@ -119,23 +122,27 @@ export const getMatchedProfessionsFromOpenAI = async (message, model='gpt-3.5-tu
 
         matchedProfessionsObj = {
             profession_1: {
-                profession_name: profession_data.profession_1.profession_name,
-                probability: profession_data.profession_1.probability,
-                classification: profession_data.profession_1.classification,
+                profession_name: profession_data.profession_1.profession_name || "N/A",
+                probability: profession_data.profession_1.probability || "N/A",
+                classification: profession_data.profession_1.classification || "N/A",
             },
             profession_2: {
-                profession_name: profession_data.profession_2.profession_name,
-                probability: profession_data.profession_2.probability,
-                classification: profession_data.profession_2.classification
-            }
+                profession_name: profession_data.profession_2.profession_name || "N/A",
+                probability: profession_data.profession_2.probability || "N/A",
+                classification: profession_data.profession_2.classification || "N/A"
+            },
+            keywords: profession_data.keywords,
         };
         usage = {
-            tokens: data.usage,
-            cost: getAPICallPrice(model, data.usage.total_tokens)
+            tokens: data.usage || "N/A",
+            cost: getAPICallPrice(model, data.usage.total_tokens) || "N/A"
         };
 
     } catch (error) {
         console.error("Error in getMatchedProfessionsFromOpenAI:", error);
+        matchedProfessionsObj = {
+            error: error,
+        }
     }
 
     return [matchedProfessionsObj, usage];
