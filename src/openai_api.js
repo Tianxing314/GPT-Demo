@@ -87,9 +87,9 @@ export const getMatchedProfessionsFromOpenAI = async (message, model='gpt-3.5-tu
     let matchedProfessionsObj = {};
     let usage = {
         tokens: {
-            prompt_tokens: 0,
-            completion_tokens: 0,
-            total_tokens: 0,
+            prompt_tokens: 'N/A',
+            completion_tokens: 'N/A',
+            total_tokens: 'N/A',
         },
         cost: 0,
     }
@@ -136,7 +136,7 @@ export const getMatchedProfessionsFromOpenAI = async (message, model='gpt-3.5-tu
     } catch (error) {
         console.error("Error in getMatchedProfessionsFromOpenAI:", error);
         matchedProfessionsObj = {
-            error: error,
+            error: error.message
         }
     }
 
