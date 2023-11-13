@@ -42,11 +42,21 @@
                 <div class="message__text">${messageText}</div>            
             `;
 
-            // message--received placeholder
+            // message--waiting
             const generatingMessage = document.createElement('div');
             generatingMessage.classList.add('message');
-            generatingMessage.classList.add('message--received');
-            generatingMessage.innerHTML = `<div class="message__text">Finding your profession...</div>`;
+            generatingMessage.classList.add('message--waiting');
+            // generatingMessage.innerHTML = `<div class="message__text">Finding your profession...</div>`;
+            generatingMessage.innerHTML = `
+            <div class="message__text">
+                <div class="loading-dots">
+                    <span>&#x2022;</span>
+                    <span>&#x2022;</span>
+                    <span>&#x2022;</span>
+                </div>
+            </div>
+            
+            `;
             
             chatLog.appendChild(messageElement);
             chatLog.appendChild(generatingMessage);

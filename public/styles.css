@@ -59,6 +59,12 @@ form select, form button {
     border-radius: 10px;
 }
 
+.message__text {
+    margin: 10px;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
 .message {
     margin-bottom: 10px;
     border-radius: 8px;
@@ -77,10 +83,46 @@ form select, form button {
     color: #000;
 }
 
-.message__text {
-    margin: 10px;
-    font-size: 16px;
-    line-height: 1.6;
+.message--waiting {
+    background-color: transparent;
+    color: #A9A9A9;
+}
+
+.loading-dots {
+    font-size: 20px;
+    text-align: start;
+}
+
+.loading-dots span {
+    animation: loadingDots 1.5s infinite;
+    display: inline-block;
+    opacity: 0;
+}
+
+.loading-dots span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.loading-dots span:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.loading-dots span:nth-child(3) {
+    animation-delay: 1s;
+}
+
+@keyframes loadingDots {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
 
 button {
