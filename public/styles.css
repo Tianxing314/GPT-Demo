@@ -10,6 +10,8 @@ body {
 main {
     text-align: center;
     padding: 20px;
+    max-width: 1280px;
+    margin: auto;
 }
 
 h1 {
@@ -36,6 +38,7 @@ form textarea {
 }
 
 form select, form button {
+    width: 240px;
     margin: 5px;
     padding: 10px;
     font-size: 16px;
@@ -44,13 +47,14 @@ form select, form button {
     box-sizing: border-box;
 }
 
-form select {
+/* form select {
     width: 30%;
 }
 
 form button {
     width: 40%;
-}
+    max-width: 200px;
+} */
 
 #chat-log {
     height: 500px;
