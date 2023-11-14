@@ -105,7 +105,10 @@ export const getMatchedProfessionsFromOpenAI = async (message, model='gpt-3.5-tu
             temperature: 0.7,
             // max_tokens: 2000,
             messages: [
-                {role: 'user', content: `Given the job description in [${message}], guess the two most possible professions`},
+                // For GPT-4
+                {role: 'user', content: `Given the job description in []: [${message}], guess the full names of the two most matched professions and provide more information about them , including at least the name and classification of the matched professions and the probabilities that they are the match.`},
+                // For GPT-3.5
+                // {role: 'user', content: `Given the job description in [${message}], guess the two most possible professions`},
             ],
             functions: [
                 {name: "get_profession_data", "parameters": schema}
@@ -114,7 +117,6 @@ export const getMatchedProfessionsFromOpenAI = async (message, model='gpt-3.5-tu
         }).withResponse();
 
         const profession_data = JSON.parse(data.choices[0].message.function_call.arguments);
-
         matchedProfessionsObj = {
             profession_1: {
                 profession_name: profession_data.profession_1.profession_name || "N/A",
@@ -132,7 +134,6 @@ export const getMatchedProfessionsFromOpenAI = async (message, model='gpt-3.5-tu
             tokens: data.usage || "N/A",
             cost: getAPICallPrice(model, data.usage.total_tokens) || "N/A"
         };
-
     } catch (error) {
         console.error("Error in getMatchedProfessionsFromOpenAI:", error);
         matchedProfessionsObj = {
