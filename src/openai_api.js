@@ -102,7 +102,7 @@ export const getMatchedProfessionsFromOpenAI = async (message, model='gpt-3.5-tu
             // model: 'gpt-3.5-turbo-16k',
             // model: "ft:gpt-3.5-turbo-1106:tianxing-li::8JVZjEai",
             model: `${model}`,
-            temperature: 0.7,
+            temperature: 0,
             // max_tokens: 2000,
             messages: [
                 // For GPT-4 and GPT-3.5
